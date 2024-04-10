@@ -1,0 +1,28 @@
+variables:
+  KUBE_NAMESPACE: boilerplate
+  HELM_RELEASE_NAME: rest
+
+include:
+  - project: 'inovacao/devops/template-cicd'
+    file: 'sonar-js.yaml'
+  - project: 'inovacao/devops/template-cicd'
+    file: 'test-nodejs.yaml'
+  - project: 'inovacao/devops/template-cicd'
+    file: 'build-nodejs.yaml'
+  - project: 'inovacao/devops/template-cicd'
+    file: 'deploy.yaml'
+
+test:
+  extends: .test
+
+sonar:
+  extends: .sonar_js
+
+build:
+  extends: .build
+
+stages:
+  - test
+  - sonar
+  - build
+  - deploy

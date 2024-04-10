@@ -1,0 +1,39 @@
+{
+  "type": "module",
+  "scripts": {
+    "eslint": "eslint .",
+    "check": "prettier --check .",
+    "format": "prettier --write .",
+    "pretest": "run-s check eslint",
+    "test": "c8 --reporter=text-summary --reporter=lcovonly --reporter=cobertura node --test test/*.spec.js",
+    "dev": "run-s test start",
+    "start": "./cli/run.js"
+  },
+  "dependencies": {
+    "@tadashi/debug": "4.1.2",
+    "@tadashi/jwt": "8.7.0",
+    "@tadashi/local-access": "1.1.1",
+    "cookie": "0.6.0",
+    "uint8array-extras": "1.1.0",
+    "uWebSockets.js": "https://github.com/uNetworking/uWebSockets.js/archive/v20.43.0.tar.gz"
+  },
+  "devDependencies": {
+    "@eslint/eslintrc": "3.0.2",
+    "@eslint/js": "9.0.0",
+    "@tadashi/hex-id": "3.0.2",
+    "c8": "9.1.0",
+    "eslint": "9.0.0",
+    "eslint-plugin-unicorn": "52.0.0",
+    "eslint-plugin-sonarjs": "0.25.1",
+    "globals": "15.0.0",
+    "hash-to-port": "1.2.0",
+    "npm-run-all": "4.1.5",
+    "prettier": "3.2.5",
+    "p-event": "6.0.1",
+    "ws": "8.16.0"
+  },
+  "peerDependencies": {
+    "debug": ">= 4 < 5",
+    "supports-color": ">= 8 < 9"
+  }
+}

@@ -1,0 +1,38 @@
+service:
+  enabled: true
+  port: 5001
+
+resources:
+  requests:
+    cpu: 10m
+    memory: 100Mi
+
+ingress:
+  enabled: true
+  domain: 'boilerplate.io'
+  host: 'websocket'
+  path: '/'
+  annotations:
+    nginx.ingress.kubernetes.io/proxy-body-size: '15m'
+
+autoscaling:
+  enabled: true
+  minReplicas: 1
+  maxReplicas: 20
+  targetCPUUtilizationPercentage: 85
+  targetMemoryUtilizationPercentage: 85
+
+extraEnv:
+  # General
+  - name: APP_NS
+    value: 'websocket'
+  - name: NODE_ENV
+    value: 'production'
+  - name: TZ
+    value: 'America/Sao_Paulo'
+
+  # Debug
+  - name: DEBUG_PREFIX
+    value: 'websocket'
+  - name: DEBUG
+    value: 'websocket:*'
