@@ -4,43 +4,29 @@ import eslintPluginSonarjs from 'eslint-plugin-sonarjs'
 import * as eslintrc from '@eslint/eslintrc'
 import js from '@eslint/js'
 
+const es2024 = eslintrc.Legacy.environments.get('es2024')
+
 export default [
 	{
 		...js.configs.recommended,
+	},
+	{
 		languageOptions: {
 			globals: {
 				...globals.browser,
 				...globals.node,
+				...es2024.globals,
 			},
-			...eslintrc.Legacy.environments.get('es2024'),
+			parserOptions: {
+				...es2024.parserOptions,
+			},
 		},
+	},
+	{
 		plugins: {
 			unicorn: eslintPluginUnicorn,
 			sonarjs: eslintPluginSonarjs,
 		},
-		// prettier-ignore
-		ignores: [
-			// Dir
-			'.conf',
-			'.github',
-			'.vite',
-			'bin',
-			'coverage',
-			'dist',
-			'logs',
-			'node_modules',
-			'resource',
-
-			// File
-			'*-lock.*',
-			'*.lock',
-			'*.log',
-			'*.log*',
-			'.registry-*',
-			'_cleanup',
-			'_init',
-			'vite.config.js.timestamp-*',
-		],
 		rules: {
 			camelcase: 'off',
 			'capitalized-comments': 'off',
@@ -76,5 +62,30 @@ export default [
 			'unicorn/prefer-query-selector': 'off',
 			'unicorn/prevent-abbreviations': 'off',
 		},
+	},
+	{
+		// prettier-ignore
+		ignores: [
+			// Dir
+			'**/node_modules/',
+			'.conf/',
+			'.github/',
+			'.vite/',
+			'bin/',
+			'coverage/',
+			'dist/',
+			'logs/',
+			'resource/',
+
+			// File
+			'*-lock.*',
+			'*.lock',
+			'*.log',
+			'*.log*',
+			'.registry-*',
+			'_cleanup',
+			'_init',
+			'vite.config.js.timestamp-*',
+		],
 	},
 ]
